@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Make a choice! "),
+            title: Text("Make a choice "),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -134,12 +134,17 @@ class _MyAppState extends State<MyApp> {
 
     stackChildren.add(Positioned(
       top: 125.0,
-      left: 100.0,
+      left: 10.0,
       width: size.width,
       child: _image == null
           ? Text('No image selected',
               style: TextStyle(fontSize: 20, color: Colors.blueGrey[900]))
-          : Image.file(_image),
+          : Image.file(
+              _image,
+              alignment: Alignment.center,
+              cacheHeight: 300,
+              cacheWidth: 200,
+            ),
     ));
 
     stackChildren.add(Center(
@@ -181,9 +186,8 @@ class _MyAppState extends State<MyApp> {
 
     if (_image != null) {
       stackChildren.add(Positioned(
-        bottom: 100.0,
+        bottom: 50.0,
         left: 140.0,
-//        width: size.width,
         child: RaisedButton(
           onPressed: handleCure,
           child: Text('Cure'),
