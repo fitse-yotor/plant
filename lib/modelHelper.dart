@@ -37,7 +37,10 @@ class _MyAppState extends State<MyApp> {
               child: ListBody(
                 children: <Widget>[
                   GestureDetector(
-                    child: Text("Gallery "),
+                    child: Icon(
+                      Icons.photo,
+                      color: Colors.green,
+                    ),
                     onTap: () {
                       predictImagePickerGallery(context);
                     },
@@ -46,7 +49,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.all(8.0),
                   ),
                   GestureDetector(
-                    child: Text("Camera "),
+                    child: Icon(Icons.camera_roll),
                     onTap: () {
                       predictImagePickerCamera(context);
                     },
@@ -130,11 +133,11 @@ class _MyAppState extends State<MyApp> {
     List<Widget> stackChildren = [];
 
     stackChildren.add(Positioned(
-      top: 150.0,
+      top: 125.0,
       left: 100.0,
       width: size.width,
       child: _image == null
-          ? Text('No image selected.',
+          ? Text('No image selected',
               style: TextStyle(fontSize: 20, color: Colors.blueGrey[900]))
           : Image.file(_image),
     ));
@@ -216,6 +219,7 @@ class _MyAppState extends State<MyApp> {
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.green,
+      centerTitle: true,
       elevation: 0,
       title: const Text('Plant Disease Recognition'),
     );
