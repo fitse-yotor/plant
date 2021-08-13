@@ -10,6 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyApp(),
     );
   }
@@ -177,6 +178,8 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plant Disease Recognition'),
+        backgroundColor: Colors.green,
+        elevation: 0,
       ),
       body: Stack(
         children: stackChildren,
