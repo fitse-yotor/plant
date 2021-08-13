@@ -144,7 +144,13 @@ class _MyAppState extends State<MyApp> {
             child: Stack(children: <Widget>[
               Container(
                 height: size.height * 0.2 - 27,
-                decoration: BoxDecoration(color: Colors.green),
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
+                ),
                 child: Stack(
                   children: _recognitions != null
                       ? _recognitions.map((res) {
