@@ -133,7 +133,9 @@ class _MyAppState extends State<MyApp> {
       top: 150.0,
       left: 100.0,
       width: size.width,
-      child: _image == null ? Text('No image selected.') : Image.file(_image),
+      child: _image == null
+          ? Text('No image selected.', style: TextStyle(fontSize: 20))
+          : Image.file(_image),
     ));
 
     stackChildren.add(Center(
