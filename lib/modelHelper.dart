@@ -134,7 +134,8 @@ class _MyAppState extends State<MyApp> {
       left: 100.0,
       width: size.width,
       child: _image == null
-          ? Text('No image selected.', style: TextStyle(fontSize: 20))
+          ? Text('No image selected.',
+              style: TextStyle(fontSize: 20, color: Colors.blueGrey[900]))
           : Image.file(_image),
     ));
 
