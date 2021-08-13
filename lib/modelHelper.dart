@@ -182,6 +182,7 @@ class _MyAppState extends State<MyApp> {
         children: stackChildren,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         onPressed: () {
           _showDialog(context);
         },
