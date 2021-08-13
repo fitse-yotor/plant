@@ -130,27 +130,40 @@ class _MyAppState extends State<MyApp> {
     List<Widget> stackChildren = [];
 
     stackChildren.add(Positioned(
-      top: 0.0,
-      left: 0.0,
+      top: 150.0,
+      left: 100.0,
       width: size.width,
       child: _image == null ? Text('No image selected.') : Image.file(_image),
     ));
 
     stackChildren.add(Center(
       child: Column(
-        children: _recognitions != null
-            ? _recognitions.map((res) {
-                diseaseName = res['label'];
-                return Text(
-                  "${res["index"]} - ${res["label"]}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    background: Paint()..color = Colors.white,
-                  ),
-                );
-              }).toList()
-            : [],
+        children: <Widget>[
+          Container(
+            height: size.height * 0.2,
+            child: Stack(children: <Widget>[
+              Container(
+                height: size.height * 0.2 - 27,
+                decoration: BoxDecoration(color: Colors.green),
+                child: Stack(
+                  children: _recognitions != null
+                      ? _recognitions.map((res) {
+                          diseaseName = res['label'];
+                          return Text(
+                            "${res["index"]} - ${res["label"]}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.0,
+                              background: Paint()..color = Colors.white,
+                            ),
+                          );
+                        }).toList()
+                      : [],
+                ),
+              ),
+            ]),
+          ),
+        ],
       ),
     ));
 
@@ -162,7 +175,7 @@ class _MyAppState extends State<MyApp> {
         child: RaisedButton(
           onPressed: handleCure,
           child: Text('Cure'),
-          color: Colors.blue,
+          color: Colors.green,
         ),
       ));
     }
@@ -176,11 +189,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plant Disease Recognition'),
-        backgroundColor: Colors.green,
-        elevation: 0,
-      ),
+      appBar: buildAppBar(),
       body: Stack(
         children: stackChildren,
       ),
@@ -192,6 +201,14 @@ class _MyAppState extends State<MyApp> {
         tooltip: 'Pick Image',
         child: Icon(Icons.camera),
       ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.green,
+      elevation: 0,
+      title: const Text('Plant Disease Recognition'),
     );
   }
 }
