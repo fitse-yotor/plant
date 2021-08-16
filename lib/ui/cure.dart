@@ -72,14 +72,33 @@ class Cure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
+        centerTitle: true,
+        elevation: 0,
         title: Text('Plant Disease Recognition'),
       ),
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: Text(disease[diseaseName]),
+          Container(
+            height: size.height * 0.5,
+            child: Expanded(
+                child: Container(
+                    height: size.height * 0.2 - 27,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      disease[diseaseName],
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ))),
           ),
         ],
       ),

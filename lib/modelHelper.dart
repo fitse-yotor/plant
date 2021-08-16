@@ -10,6 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyApp(),
     );
   }
@@ -31,12 +32,15 @@ class _MyAppState extends State<MyApp> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Make a choice! "),
+            title: Text("Make a choice "),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   GestureDetector(
-                    child: Text("Gallery "),
+                    child: Icon(
+                      Icons.photo,
+                      color: Colors.green,
+                    ),
                     onTap: () {
                       predictImagePickerGallery(context);
                     },
@@ -45,7 +49,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.all(8.0),
                   ),
                   GestureDetector(
-                    child: Text("Camera "),
+                    child: Icon(Icons.camera_roll),
                     onTap: () {
                       predictImagePickerCamera(context);
                     },
@@ -129,39 +133,65 @@ class _MyAppState extends State<MyApp> {
     List<Widget> stackChildren = [];
 
     stackChildren.add(Positioned(
-      top: 0.0,
-      left: 0.0,
+      top: 125.0,
+      left: 10.0,
       width: size.width,
-      child: _image == null ? Text('No image selected.') : Image.file(_image),
+      child: _image == null
+          ? Text('No image selected',
+              style: TextStyle(fontSize: 20, color: Colors.blueGrey[900]))
+          : Image.file(
+              _image,
+              alignment: Alignment.center,
+              cacheHeight: 300,
+              cacheWidth: 200,
+            ),
     ));
 
     stackChildren.add(Center(
       child: Column(
-        children: _recognitions != null
-            ? _recognitions.map((res) {
-                diseaseName = res['label'];
-                return Text(
-                  "${res["index"]} - ${res["label"]}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    background: Paint()..color = Colors.white,
+        children: <Widget>[
+          Container(
+            height: size.height * 0.2,
+            child: Stack(children: <Widget>[
+              Container(
+                height: size.height * 0.2 - 27,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
                   ),
-                );
-              }).toList()
-            : [],
+                ),
+                child: Stack(
+                  children: _recognitions != null
+                      ? _recognitions.map((res) {
+                          diseaseName = res['label'];
+                          return Text(
+                            "${res["index"]} - ${res["label"]}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20.0,
+                              background: Paint()..color = Colors.white,
+                            ),
+                          );
+                        }).toList()
+                      : [],
+                ),
+              ),
+            ]),
+          ),
+        ],
       ),
     ));
 
     if (_image != null) {
       stackChildren.add(Positioned(
-        bottom: 100.0,
+        bottom: 50.0,
         left: 140.0,
-//        width: size.width,
         child: RaisedButton(
           onPressed: handleCure,
           child: Text('Cure'),
-          color: Colors.blue,
+          color: Colors.green,
         ),
       ));
     }
@@ -175,19 +205,27 @@ class _MyAppState extends State<MyApp> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Plant Disease Recognition'),
-      ),
+      appBar: buildAppBar(),
       body: Stack(
         children: stackChildren,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         onPressed: () {
           _showDialog(context);
         },
         tooltip: 'Pick Image',
         child: Icon(Icons.camera),
       ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.green,
+      centerTitle: true,
+      elevation: 0,
+      title: const Text('Plant Disease Recognition'),
     );
   }
 }
